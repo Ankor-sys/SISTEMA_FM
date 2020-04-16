@@ -114,6 +114,7 @@ public class SistemaFM_MDI extends javax.swing.JFrame {
         FormularioMantenimientoArticulos ingreso = new FormularioMantenimientoArticulos();
         ingreso.setVisible(true);
         this.dispose(); 
+        
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
@@ -131,6 +132,7 @@ public class SistemaFM_MDI extends javax.swing.JFrame {
         FormularioRenta ingreso = new FormularioRenta();
         ingreso.setVisible(true);
         this.dispose(); 
+        
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -138,6 +140,7 @@ public class SistemaFM_MDI extends javax.swing.JFrame {
         FormularioMantenimientoClientes ingreso = new FormularioMantenimientoClientes();
         ingreso.setVisible(true);
         this.dispose(); 
+        
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
