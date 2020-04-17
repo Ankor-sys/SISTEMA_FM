@@ -5,12 +5,22 @@
  */
 package sistemafm;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author SEBAS
  */
 public class FormularioMantenimientoArticulos extends javax.swing.JFrame {
-
+    private static String db = "SISTEMA_FM";
+    private static String user = "root";
+    private static String password = "Cagada1234";
+    private static String host = "localhost";
+    private static String server = "jdbc:mysql://"+ host + "/" +db; 
     /**
      * Creates new form FormularioMantenimientoArticulos
      */
@@ -43,14 +53,21 @@ public class FormularioMantenimientoArticulos extends javax.swing.JFrame {
         txtDescripcion = new javax.swing.JTextField();
         btnEliminar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtBuscar = new javax.swing.JTextField();
         txtIdArticulo = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        lblStatus = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("FORMULARIO DE MANTENIMIENTO ARTICULOS");
 
         btnBuscar.setText("Buscar por ID");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Tipo: ");
 
@@ -85,6 +102,8 @@ public class FormularioMantenimientoArticulos extends javax.swing.JFrame {
 
         jLabel2.setText("Id. Articulo:");
 
+        lblStatus.setText("Estado");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -102,11 +121,16 @@ public class FormularioMantenimientoArticulos extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(74, 74, 74)
                                 .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addComponent(txtGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblStatus))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(74, 74, 74)
                         .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(152, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel8)
+                .addGap(163, 163, 163))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -130,7 +154,7 @@ public class FormularioMantenimientoArticulos extends javax.swing.JFrame {
                                 .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(layout.createSequentialGroup()
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
@@ -147,10 +171,14 @@ public class FormularioMantenimientoArticulos extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
+                .addComponent(txtDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(91, 91, 91))
+                .addGap(66, 66, 66)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblStatus)
+                .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(34, 34, 34)
@@ -177,7 +205,7 @@ public class FormularioMantenimientoArticulos extends javax.swing.JFrame {
                     .addGap(36, 36, 36)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnBuscar)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addContainerGap(38, Short.MAX_VALUE)))
         );
 
@@ -186,15 +214,114 @@ public class FormularioMantenimientoArticulos extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
+        try{
+            //local host y el nombre de la base de datos y la contraseña
+            Connection cn = DriverManager.getConnection(server, user, password);
+            //Esto permitirá el insert
+            PreparedStatement pst = cn.prepareStatement("insert into articulos values(?,?,?,?,?,?)");
+            //El primer parametro de cada setString es cada ?
+            pst.setString(1, txtIdArticulo.getText().trim());
+            pst.setString(2, txtTipo.getText().trim());
+            pst.setString(3, txtNombre.getText().trim());
+            pst.setString(4, txtGenero.getText().trim());
+            pst.setString(5, txtDescripcion.getText().trim());
+            pst.setString(6, txtPrecio.getText().trim());
+            pst.executeUpdate();
+
+           
+            txtIdArticulo.setText("");
+            txtTipo.setText("");
+            txtNombre.setText("");
+            txtGenero.setText("");
+            txtDescripcion.setText("");
+            txtPrecio.setText("");
+            lblStatus.setText("Registro exitoso.");
+        }catch (Exception e){
+
+        }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
+         try {
+            String ID = txtBuscar.getText().trim();
+
+             Connection cn = DriverManager.getConnection(server, user, password);
+            PreparedStatement pst = cn.prepareStatement("update articulos set Id_Articulo = ?, Tipo = ? , Nombre = ?, Genero =?, Descripcion = ?, Precio_Renta = ? where Id_Articulo = " + ID);
+
+            pst.setString(1, txtIdArticulo.getText().trim());
+            pst.setString(2, txtTipo.getText().trim());
+            pst.setString(3, txtNombre.getText().trim());
+            pst.setString(4, txtGenero.getText().trim());
+            pst.setString(5, txtDescripcion.getText().trim());
+            pst.setString(6, txtPrecio.getText().trim());
+            pst.executeUpdate();
+
+            txtIdArticulo.setText("");
+            txtTipo.setText("");
+            txtNombre.setText("");
+            txtGenero.setText("");
+            txtDescripcion.setText("");
+            txtPrecio.setText("");
+            
+            lblStatus.setText("Modificación exitosa.");
+
+        } catch (Exception e) {
+        }
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
+        try {
+            Connection cn = DriverManager.getConnection(server, user, password);
+            PreparedStatement pst = cn.prepareStatement("delete from articulos where Id_Articulo = ?");
+
+            pst.setString(1, txtBuscar.getText().trim());
+            pst.executeUpdate();
+
+            txtIdArticulo.setText("");
+            txtTipo.setText("");
+            txtNombre.setText("");
+            txtGenero.setText("");
+            txtDescripcion.setText("");
+            txtPrecio.setText("");
+            
+            lblStatus.setText("Registro eliminado.");
+
+        } catch (Exception e) {
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // TODO add your handling code here:
+         try{
+            //local host y el nombre de la base de datos y la contraseñña
+           Connection cn = DriverManager.getConnection(server, user, password);
+            //Esto permitirá el buscar registro a traves del ID
+            PreparedStatement pst = cn.prepareStatement("select * from articulos where Id_Articulo = ?");
+            //El parametro 1 es de que solo un ? esta llenando y entra lo del txt
+            pst.setString(1, txtBuscar.getText().trim());
+
+            //El result del query, lo que ira a traer
+            ResultSet rs = pst.executeQuery();
+
+            if(rs.next()){
+                txtIdArticulo.setText(rs.getString("Id_Articulo"));
+                txtTipo.setText(rs.getString("Tipo"));
+                txtNombre.setText(rs.getString("Nombre"));
+                txtGenero.setText(rs.getString("Genero"));
+                txtDescripcion.setText(rs.getString("Descripcion"));
+                txtPrecio.setText(rs.getString("PrecioRenta"));
+                
+                JOptionPane.showMessageDialog(null, "Alumno encontrado.");
+            } else {
+                JOptionPane.showMessageDialog(null, "Alumno no encontrado.");
+            }
+
+        }catch (Exception e){
+
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -243,7 +370,9 @@ public class FormularioMantenimientoArticulos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel lblStatus;
+    private javax.swing.JTextField txtBuscar;
     private javax.swing.JTextField txtDescripcion;
     private javax.swing.JTextField txtGenero;
     private javax.swing.JTextField txtIdArticulo;
