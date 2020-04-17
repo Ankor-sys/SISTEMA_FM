@@ -147,7 +147,32 @@ public class FormSolicitudTarjeta extends javax.swing.JInternalFrame {
 
     private void btnSolicitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitarActionPerformed
         // TODO add your handling code here:
-      
+        try{
+        
+             Connection cn = DriverManager.getConnection(server, user, password);
+             
+             PreparedStatement pstBuscar = cn.prepareStatement("select Correo from clientes where Correo = ?");
+             pstBuscar.setString(1, txtCorreoCliente.getText().trim());
+             
+             ResultSet rs = pstBuscar.executeQuery();
+             if (rs.next()) {
+                JOptionPane.showMessageDialog(null, "Ya existe un usuario con ese correo.");
+            }
+             else{
+              PreparedStatement pstAgregar = cn.prepareStatement("insert into clientes values(?,?,?,?,?,?)");
+              pstAgregar.setString(1, null);
+              pstAgregar.setString(2, txtNombreCliente.getText().trim());
+              pstAgregar.setString(3, txtApellidoCliente.getText().trim());
+              pstAgregar.setString(4, txtCorreoCliente.getText().trim());
+              pstAgregar.setString(5, txtDireccion.getText().trim());
+              pstAgregar.setString(6,"A");
+              pstAgregar.executeUpdate();
+              
+             }
+        }
+        catch(Exception e){
+            
+            }  
         
     }//GEN-LAST:event_btnSolicitarActionPerformed
 
