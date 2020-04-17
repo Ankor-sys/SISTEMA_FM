@@ -5,12 +5,23 @@
  */
 package sistemafm;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author SEBAS
  */
 public class FormSolicitudTarjeta extends javax.swing.JInternalFrame {
 
+    private static String db = "sistema_fm";
+    private static String user = "root";
+    private static String password = "Cagada1234";
+    private static String host = "localhost";
+    private static String server = "jdbc:mysql://"+ host + "/" +db;
     /**
      * Creates new form FormSolicitudTarjeta
      */
@@ -38,7 +49,7 @@ public class FormSolicitudTarjeta extends javax.swing.JInternalFrame {
         txtApellidoCliente = new javax.swing.JTextField();
         txtCorreoCliente = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtCorreoCliente1 = new javax.swing.JTextField();
+        txtDireccion = new javax.swing.JTextField();
 
         setClosable(true);
         setIconifiable(true);
@@ -89,7 +100,7 @@ public class FormSolicitudTarjeta extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtCorreoCliente1, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(180, 180, 180)
                         .addComponent(btnSolicitar))
@@ -123,7 +134,7 @@ public class FormSolicitudTarjeta extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(txtCorreoCliente1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnSolicitar)
                         .addGap(60, 60, 60)
@@ -136,6 +147,8 @@ public class FormSolicitudTarjeta extends javax.swing.JInternalFrame {
 
     private void btnSolicitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitarActionPerformed
         // TODO add your handling code here:
+      
+        
     }//GEN-LAST:event_btnSolicitarActionPerformed
 
 
@@ -149,7 +162,7 @@ public class FormSolicitudTarjeta extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JTextField txtApellidoCliente;
     private javax.swing.JTextField txtCorreoCliente;
-    private javax.swing.JTextField txtCorreoCliente1;
+    private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtNombreCliente;
     private javax.swing.JTextField txtNumeroTarjeta;
     // End of variables declaration//GEN-END:variables
