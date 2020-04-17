@@ -175,18 +175,6 @@ public class FormSolicitudTarjeta extends javax.swing.JInternalFrame {
 
     private void btnSolicitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitarActionPerformed
         // TODO add your handling code here:
-<<<<<<< HEAD
-        try{
-        
-             Connection cn = DriverManager.getConnection(server, user, password);
-             
-             PreparedStatement pstBuscar = cn.prepareStatement("select Correo from clientes where Correo = ?");
-             pstBuscar.setString(1, txtCorreoCliente.getText().trim());
-             
-             ResultSet rs = pstBuscar.executeQuery();
-             if (rs.next()) {
-=======
-       
         try{
             
              Connection cn = DriverManager.getConnection(server, user, password);
@@ -196,7 +184,6 @@ public class FormSolicitudTarjeta extends javax.swing.JInternalFrame {
              
              ResultSet rsBusquedaCorreo = pstBuscarCorreo.executeQuery();
              if (rsBusquedaCorreo.next()) {
->>>>>>> RamaMantenimientos
                 JOptionPane.showMessageDialog(null, "Ya existe un usuario con ese correo.");
             }
              else{
@@ -208,10 +195,6 @@ public class FormSolicitudTarjeta extends javax.swing.JInternalFrame {
               pstAgregar.setString(5, txtDireccion.getText().trim());
               pstAgregar.setString(6,"A");
               pstAgregar.executeUpdate();
-<<<<<<< HEAD
-              
-             }
-=======
             
              
             
@@ -224,16 +207,12 @@ public class FormSolicitudTarjeta extends javax.swing.JInternalFrame {
              
             
              
->>>>>>> RamaMantenimientos
         }
         catch(Exception e){
             
             }  
-<<<<<<< HEAD
-=======
         
->>>>>>> RamaMantenimientos
-        
+
     }//GEN-LAST:event_btnSolicitarActionPerformed
 
     private void btnBuscarTarjetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarTarjetaActionPerformed
