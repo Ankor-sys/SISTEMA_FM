@@ -21,10 +21,12 @@ public class FormRenta extends javax.swing.JInternalFrame {
     private static String password = "Cagada1234";
     private static String host = "localhost";
     private static String server = "jdbc:mysql://"+ host + "/" +db; 
+    float fltSubtotal, fltTotal=0;
     /**
      * Creates new form FormRenta
      */
     public FormRenta() {
+      
         initComponents();
     }
 
@@ -45,6 +47,11 @@ public class FormRenta extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         txtNombreArticulo = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        txtSubtotal = new javax.swing.JTextField();
+        txtTotal = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        btnAgregar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -62,6 +69,11 @@ public class FormRenta extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblArticulos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblArticulosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblArticulos);
 
         jLabel1.setText("FORMULARIO DE RENTA");
@@ -77,13 +89,30 @@ public class FormRenta extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel4.setText("SUBTOTAL:");
+
+        txtSubtotal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSubtotalActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("TOTAL:");
+
+        btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
@@ -95,12 +124,25 @@ public class FormRenta extends javax.swing.JInternalFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtNombreArticulo, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtNumeroTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(140, 140, 140)
                         .addComponent(btnBuscar))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel5)
+                        .addGap(23, 23, 23)
+                        .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(26, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnAgregar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -119,8 +161,17 @@ public class FormRenta extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addComponent(btnBuscar)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtSubtotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAgregar))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         pack();
@@ -132,6 +183,7 @@ public class FormRenta extends javax.swing.JInternalFrame {
         modelo.setColumnIdentifiers(new Object[]{"Id_Articulo", "Tipo", "Nombre", "Genero" , "Descripcion", "Precio_Renta"});
 
         try {
+            
             Connection cn = DriverManager.getConnection(server, user, password);
             PreparedStatement pst = cn.prepareStatement("select * from articulos where Nombre = ?");
             pst.setString(1, txtNombreArticulo.getText().trim());
@@ -140,23 +192,50 @@ public class FormRenta extends javax.swing.JInternalFrame {
 
             while(rs.next()){
                 modelo.addRow(new Object[]{rs.getString("Id_Articulo"), rs.getString("Tipo"),
-                    rs.getString("Nombre"), rs.getString("Genero"), rs.getString("Descripcion"),rs.getString("Precio_Renta")});
-        }
+                rs.getString("Nombre"), rs.getString("Genero"), rs.getString("Descripcion"),rs.getString("Precio_Renta")});
+            }
 
         tblArticulos.setModel(modelo);
         }
         catch(Exception e){}
     }//GEN-LAST:event_btnBuscarActionPerformed
 
+    private void txtSubtotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSubtotalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSubtotalActionPerformed
+
+    private void tblArticulosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblArticulosMouseClicked
+        // TODO add your handling code here:
+        int seleccionar = tblArticulos.rowAtPoint(evt.getPoint());
+        txtSubtotal.setText(String.valueOf(tblArticulos.getValueAt(seleccionar,5)));
+        
+        
+    }//GEN-LAST:event_tblArticulosMouseClicked
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        // TODO add your handling code here:
+        fltSubtotal = Float.parseFloat(txtSubtotal.getText());
+        fltTotal+=fltSubtotal;
+        String strTotal;
+        strTotal = Float.toString(fltTotal);
+        txtTotal.setText(strTotal);
+        
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblArticulos;
     private javax.swing.JTextField txtNombreArticulo;
     private javax.swing.JTextField txtNumeroTarjeta;
+    private javax.swing.JTextField txtSubtotal;
+    private javax.swing.JTextField txtTotal;
     // End of variables declaration//GEN-END:variables
 }
