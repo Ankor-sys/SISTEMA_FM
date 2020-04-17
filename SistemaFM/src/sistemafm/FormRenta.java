@@ -220,6 +220,7 @@ public class FormRenta extends javax.swing.JInternalFrame {
         strTotal = Float.toString(fltTotal);
         txtTotal.setText(strTotal);
         
+        
     }//GEN-LAST:event_btnAgregarActionPerformed
 
 
