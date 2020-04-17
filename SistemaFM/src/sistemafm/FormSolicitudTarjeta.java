@@ -50,6 +50,8 @@ public class FormSolicitudTarjeta extends javax.swing.JInternalFrame {
         txtCorreoCliente = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtDireccion = new javax.swing.JTextField();
+        btnBuscarTarjeta = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -65,8 +67,6 @@ public class FormSolicitudTarjeta extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel6.setText("No. TARJETA ASIGNADO: ");
-
         jLabel1.setText("FORMULARIO DE SOLICITUD DE TARJETA");
 
         jLabel2.setText("Nombre:  ");
@@ -74,6 +74,20 @@ public class FormSolicitudTarjeta extends javax.swing.JInternalFrame {
         jLabel3.setText("Apellido:  ");
 
         jLabel4.setText("Correo:   ");
+
+        btnBuscarTarjeta.setText("VER No. TERJETA ASIGNADA");
+        btnBuscarTarjeta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarTarjetaActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("OK");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -103,43 +117,57 @@ public class FormSolicitudTarjeta extends javax.swing.JInternalFrame {
                                 .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(180, 180, 180)
-                        .addComponent(btnSolicitar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(83, 83, 83)
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtNumeroTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(167, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnBuscarTarjeta)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtNumeroTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnSolicitar)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(28, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel6)
+                .addGap(92, 92, 92))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtNumeroTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel1)
+                .addGap(13, 13, 13)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtNombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtApellidoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(13, 13, 13)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtCorreoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnSolicitar)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(13, 13, 13)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                        .addComponent(jLabel6)
+                        .addGap(81, 81, 81))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(txtNombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(txtApellidoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(13, 13, 13)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(txtCorreoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnSolicitar)
-                        .addGap(60, 60, 60)
-                        .addComponent(jLabel6)))
-                .addContainerGap(94, Short.MAX_VALUE))
+                            .addComponent(txtNumeroTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnBuscarTarjeta))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(jButton1)
+                .addContainerGap())
         );
 
         pack();
@@ -147,6 +175,7 @@ public class FormSolicitudTarjeta extends javax.swing.JInternalFrame {
 
     private void btnSolicitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitarActionPerformed
         // TODO add your handling code here:
+<<<<<<< HEAD
         try{
         
              Connection cn = DriverManager.getConnection(server, user, password);
@@ -156,6 +185,18 @@ public class FormSolicitudTarjeta extends javax.swing.JInternalFrame {
              
              ResultSet rs = pstBuscar.executeQuery();
              if (rs.next()) {
+=======
+       
+        try{
+            
+             Connection cn = DriverManager.getConnection(server, user, password);
+             
+             PreparedStatement pstBuscarCorreo = cn.prepareStatement("select Correo from clientes where Correo = ?");
+             pstBuscarCorreo.setString(1, txtCorreoCliente.getText().trim());
+             
+             ResultSet rsBusquedaCorreo = pstBuscarCorreo.executeQuery();
+             if (rsBusquedaCorreo.next()) {
+>>>>>>> RamaMantenimientos
                 JOptionPane.showMessageDialog(null, "Ya existe un usuario con ese correo.");
             }
              else{
@@ -167,18 +208,69 @@ public class FormSolicitudTarjeta extends javax.swing.JInternalFrame {
               pstAgregar.setString(5, txtDireccion.getText().trim());
               pstAgregar.setString(6,"A");
               pstAgregar.executeUpdate();
+<<<<<<< HEAD
               
              }
+=======
+            
+             
+            
+             
+            
+             JOptionPane.showMessageDialog(null, "Tramite con éxito");
+
+             
+             }
+             
+            
+             
+>>>>>>> RamaMantenimientos
         }
         catch(Exception e){
             
             }  
+<<<<<<< HEAD
+=======
+        
+>>>>>>> RamaMantenimientos
         
     }//GEN-LAST:event_btnSolicitarActionPerformed
 
+    private void btnBuscarTarjetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarTarjetaActionPerformed
+        // TODO add your handling code here:
+        try{
+          Connection cn = DriverManager.getConnection(server, user, password);
+          PreparedStatement pstNoTarjeta = cn.prepareStatement("select No_Tarjeta from clientes where Correo = ?");
+          pstNoTarjeta.setString(1, txtCorreoCliente.getText().trim());
+             
+          ResultSet rsNoTarjeta = pstNoTarjeta.executeQuery();
+            if (rsNoTarjeta.next()) {
+                txtNumeroTarjeta.setText(rsNoTarjeta.getString("No_Tarjeta"));
+            }
+          
+            txtNombreCliente.setText("");
+            txtApellidoCliente.setText("");
+            txtCorreoCliente.setText("");
+            txtDireccion.setText("");
+            
+        }
+        catch(Exception e){}
+    }//GEN-LAST:event_btnBuscarTarjetaActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+            txtNombreCliente.setText("");
+            txtApellidoCliente.setText("");
+            txtCorreoCliente.setText("");
+            txtDireccion.setText("");
+            txtNumeroTarjeta.setText("");
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscarTarjeta;
     private javax.swing.JButton btnSolicitar;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
