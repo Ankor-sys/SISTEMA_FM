@@ -133,7 +133,7 @@ public class SistemaFM_MDI extends javax.swing.JFrame {
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         // TODO add your handling code here:
-        FormularioRenta ingreso = new FormularioRenta();
+        FormRenta ingreso = new FormRenta();
         ingreso.setVisible(true);
         this.dispose(); 
         
@@ -141,7 +141,7 @@ public class SistemaFM_MDI extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
-        FormularioMantenimientoClientes ingreso = new FormularioMantenimientoClientes();
+        FormMantenimientoClientes ingreso = new FormMantenimientoClientes();
         ingreso.setVisible(true);
         this.dispose(); 
         
