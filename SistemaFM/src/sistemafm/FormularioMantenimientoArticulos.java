@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
  * @author SEBAS
  */
 public class FormularioMantenimientoArticulos extends javax.swing.JFrame {
-    private static String db = "SISTEMA_FM";
+    private static String db = "sistema_fm";
     private static String user = "root";
     private static String password = "Cagada1234";
     private static String host = "localhost";
