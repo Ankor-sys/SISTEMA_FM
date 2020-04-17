@@ -40,6 +40,11 @@ public class FormSolicitudTarjeta extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         txtCorreoCliente1 = new javax.swing.JTextField();
 
+        setClosable(true);
+        setIconifiable(true);
+        setResizable(true);
+        setVisible(true);
+
         jLabel5.setText("Direccion:");
 
         btnSolicitar.setText("SOLICITAR");

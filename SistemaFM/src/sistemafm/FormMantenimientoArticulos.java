@@ -45,7 +45,7 @@ public class FormMantenimientoArticulos extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         txtIdArticulo = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        txtTipo1 = new javax.swing.JTextField();
+        txtTipoArticulo = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtGenero = new javax.swing.JTextField();
@@ -64,6 +64,11 @@ public class FormMantenimientoArticulos extends javax.swing.JInternalFrame {
         jLabel3.setText("Tipo: ");
 
         lblStatus.setText("Estado");
+
+        setClosable(true);
+        setIconifiable(true);
+        setResizable(true);
+        setVisible(true);
 
         jLabel1.setText("FORMULARIO DE MANTENIMIENTO ARTICULOS");
 
@@ -137,7 +142,7 @@ public class FormMantenimientoArticulos extends javax.swing.JInternalFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtGenero, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtTipo1, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtTipoArticulo, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtIdArticulo, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel6)
@@ -173,7 +178,7 @@ public class FormMantenimientoArticulos extends javax.swing.JInternalFrame {
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtTipo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTipoArticulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -205,7 +210,7 @@ public class FormMantenimientoArticulos extends javax.swing.JInternalFrame {
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(lblStatus1)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         pack();
@@ -300,7 +305,7 @@ public class FormMantenimientoArticulos extends javax.swing.JInternalFrame {
             //local host y el nombre de la base de datos y la contraseñña
             Connection cn = DriverManager.getConnection(server, user, password);
             //Esto permitirá el buscar registro a traves del ID
-            PreparedStatement pst = cn.prepareStatement("select * from articulos where Id_Articulo = ?");
+            PreparedStatement pst = cn.prepareStatement("select Id_Articulo, Tipo, Nombre, Genero, Descripcion, Precio_Renta from articulos where Id_Articulo = ?");
             //El parametro 1 es de que solo un ? esta llenando y entra lo del txt
             pst.setString(1, txtBuscar.getText().trim());
 
@@ -309,15 +314,15 @@ public class FormMantenimientoArticulos extends javax.swing.JInternalFrame {
 
             if(rs.next()){
                 txtIdArticulo.setText(rs.getString("Id_Articulo"));
-                txtTipo.setText(rs.getString("Tipo"));
+                txtTipoArticulo.setText(rs.getString("Tipo"));
                 txtNombre.setText(rs.getString("Nombre"));
                 txtGenero.setText(rs.getString("Genero"));
                 txtDescripcion.setText(rs.getString("Descripcion"));
-                txtPrecio.setText(rs.getString("PrecioRenta"));
+                txtPrecio.setText(rs.getString("Precio_Renta"));
 
-                JOptionPane.showMessageDialog(null, "Alumno encontrado.");
+                JOptionPane.showMessageDialog(null, "Articulo encontrado.");
             } else {
-                JOptionPane.showMessageDialog(null, "Alumno no encontrado.");
+                JOptionPane.showMessageDialog(null, "Articulo no encontrado.");
             }
 
         }catch (Exception e){
@@ -348,6 +353,6 @@ public class FormMantenimientoArticulos extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtPrecio;
     private javax.swing.JTextField txtTipo;
-    private javax.swing.JTextField txtTipo1;
+    private javax.swing.JTextField txtTipoArticulo;
     // End of variables declaration//GEN-END:variables
 }

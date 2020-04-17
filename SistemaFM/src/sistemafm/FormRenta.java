@@ -46,6 +46,11 @@ public class FormRenta extends javax.swing.JInternalFrame {
         txtNombreArticulo = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
 
+        setClosable(true);
+        setIconifiable(true);
+        setResizable(true);
+        setVisible(true);
+
         tblArticulos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},

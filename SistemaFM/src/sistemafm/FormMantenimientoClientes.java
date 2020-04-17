@@ -46,6 +46,11 @@ public class FormMantenimientoClientes extends javax.swing.JInternalFrame {
         jTextField1 = new javax.swing.JTextField();
         txtNumeroTarjeta = new javax.swing.JTextField();
 
+        setClosable(true);
+        setIconifiable(true);
+        setResizable(true);
+        setVisible(true);
+
         jButton1.setText("Buscar por Numero Tarjeta");
 
         jLabel3.setText("Nombre: ");

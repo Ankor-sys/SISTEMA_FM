@@ -15,6 +15,12 @@
       </Properties>
     </Component>
   </NonVisualComponents>
+  <Properties>
+    <Property name="closable" type="boolean" value="true"/>
+    <Property name="iconifiable" type="boolean" value="true"/>
+    <Property name="resizable" type="boolean" value="true"/>
+    <Property name="visible" type="boolean" value="true"/>
+  </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
   </SyntheticProperties>
@@ -53,7 +59,7 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="txtGenero" min="-2" pref="258" max="-2" attributes="0"/>
                                   <Component id="txtNombre" min="-2" pref="258" max="-2" attributes="0"/>
-                                  <Component id="txtTipo1" min="-2" pref="258" max="-2" attributes="0"/>
+                                  <Component id="txtTipoArticulo" min="-2" pref="258" max="-2" attributes="0"/>
                                   <Component id="txtIdArticulo" min="-2" pref="258" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -102,7 +108,7 @@
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="txtTipo1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtTipoArticulo" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -143,7 +149,7 @@
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="lblStatus1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="25" max="32767" attributes="0"/>
+              <EmptySpace pref="29" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -166,7 +172,7 @@
         <Property name="text" type="java.lang.String" value="Tipo: "/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtTipo1">
+    <Component class="javax.swing.JTextField" name="txtTipoArticulo">
     </Component>
     <Component class="javax.swing.JTextField" name="txtNombre">
     </Component>

@@ -14,6 +14,10 @@ public class SistemaFM_MDI extends javax.swing.JFrame {
     /**
      * Creates new form SistemaFM_MDI
      */
+    private FormMantenimientoArticulos ventanaMantenimientoArticulos;
+    private FormMantenimientoClientes ventanaMantenimientoClientes;
+    private FormRenta ventanaRenta;
+    private FormSolicitudTarjeta ventanaSolicitudTarjeta;
     public SistemaFM_MDI() {
         initComponents();
     }
@@ -115,36 +119,33 @@ public class SistemaFM_MDI extends javax.swing.JFrame {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
-        FormMantenimientoArticulos ingreso = new FormMantenimientoArticulos();
-        ingreso.setVisible(true);
-        this.dispose(); 
+        ventanaMantenimientoArticulos = new FormMantenimientoArticulos();
+        jDesktopPane1.add(ventanaMantenimientoArticulos);
+        
         
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         // TODO add your handling code here:
-        
-        FormSolicitudTarjeta ingreso = new FormSolicitudTarjeta();
-        ingreso.setVisible(true);
-        this.dispose(); 
-
-
+        ventanaSolicitudTarjeta = new FormSolicitudTarjeta();
+        jDesktopPane1.add(ventanaSolicitudTarjeta);
+      
+ 
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         // TODO add your handling code here:
-        FormRenta ingreso = new FormRenta();
-        ingreso.setVisible(true);
-        this.dispose(); 
+        ventanaRenta = new FormRenta();
+        jDesktopPane1.add(ventanaRenta);
         
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
-        FormMantenimientoClientes ingreso = new FormMantenimientoClientes();
-        ingreso.setVisible(true);
-        this.dispose(); 
+        ventanaMantenimientoClientes = new FormMantenimientoClientes();
+        jDesktopPane1.add(ventanaMantenimientoClientes);
         
+       
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
