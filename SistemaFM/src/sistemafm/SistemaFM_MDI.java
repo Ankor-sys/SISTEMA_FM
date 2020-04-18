@@ -36,6 +36,7 @@ public class SistemaFM_MDI extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuDevolucion = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -71,6 +72,14 @@ public class SistemaFM_MDI extends javax.swing.JFrame {
             }
         });
         jMenu3.add(jMenuItem4);
+
+        jMenuDevolucion.setText("Devolucion");
+        jMenuDevolucion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuDevolucionActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuDevolucion);
 
         jMenuBar1.add(jMenu3);
 
@@ -148,6 +157,16 @@ public class SistemaFM_MDI extends javax.swing.JFrame {
        
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void jMenuDevolucionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuDevolucionActionPerformed
+       
+        
+
+DEVOLUCION ventana = new DEVOLUCION();
+jDesktopPane1.add(ventana);
+
+// TODO add your handling code here:
+    }//GEN-LAST:event_jMenuDevolucionActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -189,6 +208,7 @@ public class SistemaFM_MDI extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuDevolucion;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
