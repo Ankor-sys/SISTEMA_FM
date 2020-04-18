@@ -1,7 +1,6 @@
-#drop database sistema_fm;
 
-create database sistema_fm;
-use sistema_fm;
+create database SISTEMA_FM;
+use SISTEMA_FM;
 
 create table clientes
 (
@@ -12,7 +11,7 @@ Correo varchar (60) not null,
 Direccion varchar (60) not null,
 Estatus varchar (1) not null
 
-)engine=InnoDB auto_increment=1110 Default charset = Latin1 ;
+)engine=InnoDB Default charset = Latin1 ;
 
 
 create table articulos
@@ -21,8 +20,10 @@ Id_Articulo int primary key,
 Tipo varchar (60) not null,
 Nombre varchar (60) not null,
 Genero varchar (60) not null,
-Descripcion varchar (400) not null,
-Precio_Renta float not null
+Descripcion varchar (60) not null,
+Precio_Renta float not null,
+Existencia int  not null
+
 ) engine=InnoDB Default charset = Latin1 ;
 
 
@@ -32,36 +33,38 @@ Id_Administrador int primary key,
 Nombre varchar (60) not null,
 clave  varchar (60) not null
 
+
 )engine=InnoDB Default charset = Latin1 ;
 
 create table rentas
 (
-Id_Renta int primary key auto_increment,
+Id_Renta int primary key,
 No_Tarjeta int Not null,
 Nombre varchar (60) not null,
-Fecha_PrimerRenta  varchar(12)  not null
+Fecha_PrimerRenta  date  not null,
 
-#foreign key (No_Tarjeta) references clientes (No_Tarjeta)
+foreign key (No_Tarjeta) references clientes (No_Tarjeta)
 
 )engine=InnoDB Default charset = Latin1 ;
 
 
 create table reporte
 (
-Id_Reporte int primary key auto_increment,
+Id_Reporte int primary key,
+Id_Administrador int not null,
 No_Tarjeta int not null,
 Nombre_Cliente varchar (60) not null,
-Fecha_Adquisicion varchar(12) not null,
-Fecha_Devolucion varchar(12) not null, 
-Id_Articulo int not null,
-Total_Renta float not null
+Fecha_Adquisicion date not null,
+Fecha_Devolucion date not null, 
+Id_Producto int not null,
+Precio_Renta float not null,
 
-#foreign key (No_Tarjeta) references clientes (No_Tarjeta),
-#foreign key(Id_Articulo) references articulos (Id_Articulo)
+foreign key (No_Tarjeta) references clientes (No_Tarjeta),
+foreign key(Id_Producto) references articulos (Id_Articulo),
+foreign key(Id_Administrador ) references  administrador (Id_Administrador ) 
+
 
 )engine=InnoDB Default charset = Latin1 ;
 
-#select * from articulos;
-#select * from clientes;
-select * from rentas;
-select * from reporte;
+
+drop database SISTEMA_FM;
