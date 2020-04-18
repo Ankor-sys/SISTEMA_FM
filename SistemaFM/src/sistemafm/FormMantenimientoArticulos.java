@@ -17,8 +17,8 @@ import javax.swing.JOptionPane;
  */
 public class FormMantenimientoArticulos extends javax.swing.JInternalFrame {
     private static String db = "sistema_fm";
-    private static String user = "rex";
-    private static String password = "polloloco900";
+    private static String user = "root";
+    private static String password = "Cagada1234";
     private static String host = "localhost";
     private static String server = "jdbc:mysql://"+ host + "/" +db; 
     /**
