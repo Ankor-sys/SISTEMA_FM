@@ -229,7 +229,7 @@ public class FormMantenimientoArticulos extends javax.swing.JInternalFrame {
             PreparedStatement pst = cn.prepareStatement("insert into articulos values(?,?,?,?,?,?)");
             //El primer parametro de cada setString es cada ?
             pst.setString(1, txtIdArticulo.getText().trim());
-            pst.setString(2, txtTipo.getText().trim());
+            pst.setString(2, txtTipoArticulo.getText().trim());
             pst.setString(3, txtNombre.getText().trim());
             pst.setString(4, txtGenero.getText().trim());
             pst.setString(5, txtDescripcion.getText().trim());
@@ -237,7 +237,7 @@ public class FormMantenimientoArticulos extends javax.swing.JInternalFrame {
             pst.executeUpdate();
 
             txtIdArticulo.setText("");
-            txtTipo.setText("");
+            txtTipoArticulo.setText("");
             txtNombre.setText("");
             txtGenero.setText("");
             txtDescripcion.setText("");
@@ -257,7 +257,7 @@ public class FormMantenimientoArticulos extends javax.swing.JInternalFrame {
             PreparedStatement pst = cn.prepareStatement("update articulos set Id_Articulo = ?, Tipo = ? , Nombre = ?, Genero =?, Descripcion = ?, Precio_Renta = ? where Id_Articulo = " + ID);
 
             pst.setString(1, txtIdArticulo.getText().trim());
-            pst.setString(2, txtTipo.getText().trim());
+            pst.setString(2, txtTipoArticulo.getText().trim());
             pst.setString(3, txtNombre.getText().trim());
             pst.setString(4, txtGenero.getText().trim());
             pst.setString(5, txtDescripcion.getText().trim());
@@ -287,7 +287,7 @@ public class FormMantenimientoArticulos extends javax.swing.JInternalFrame {
             pst.executeUpdate();
 
             txtIdArticulo.setText("");
-            txtTipo.setText("");
+            txtTipoArticulo.setText("");
             txtNombre.setText("");
             txtGenero.setText("");
             txtDescripcion.setText("");
