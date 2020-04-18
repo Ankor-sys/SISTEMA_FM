@@ -194,7 +194,7 @@ public class DEVOLUCION extends javax.swing.JInternalFrame {
         
          try{
             Connection cn = DriverManager.getConnection(server, user, password);
-            PreparedStatement pst = cn.prepareStatement("insert into devolucion values(?,?,?,?,?,?)");
+            PreparedStatement pst = cn.prepareStatement("insert into devolucion values(?,?,?,?,?,?,?)");
             //en la variables pst de tipo coneccion a base de datos inserte 
             
             pst.setString(1, "0");
@@ -203,13 +203,13 @@ public class DEVOLUCION extends javax.swing.JInternalFrame {
             pst.setString(4, txtMora.getText().trim());
             pst.setString(5, txtFechaRenta.getText().trim());
             pst.setString(6, txtFechaDevolucion.getText().trim());
-            
-            
-            
-            // aca ejecuta el qvery
-            
-            
+            pst.setString(7, txtTotal.getText().trim());
             pst.executeUpdate();
+            
+            
+ 
+            
+           
              JOptionPane.showMessageDialog(null, " REGISTRO DEVOLUCION CORRECTAMENTE");
             
              txtReporte.setText("");
@@ -217,7 +217,7 @@ public class DEVOLUCION extends javax.swing.JInternalFrame {
              txtMora.setText("");
              txtFechaRenta.setText("");
              txtFechaDevolucion.setText("");
-             
+             txtTotal.setText("");
 
             
             
