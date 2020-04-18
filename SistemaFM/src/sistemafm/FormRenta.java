@@ -5,12 +5,16 @@
  */
 package sistemafm;
 
+import java.awt.List;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
@@ -24,8 +28,9 @@ public class FormRenta extends javax.swing.JInternalFrame {
     private static String password = "Cagada1234";
     private static String host = "localhost";
     private static String server = "jdbc:mysql://"+ host + "/" +db; 
-    float fltSubtotal, fltTotal=0;
+    float  fltSubtotal, fltTotal=0;
     String nombreCliente = null;
+    private static String fechaDevolucion;
     
     /**
      * Creates new form FormRenta
@@ -68,10 +73,12 @@ public class FormRenta extends javax.swing.JInternalFrame {
         jLabel10 = new javax.swing.JLabel();
         txtTipoArticuloR = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        txtFechaActualR = new com.toedter.calendar.JDateChooser();
         jLabel12 = new javax.swing.JLabel();
         txtFechaDevolucionR = new javax.swing.JTextField();
         btnFinalizarCompra = new javax.swing.JButton();
+        txtFechaActualR = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        txtNombreClienteR = new javax.swing.JTextField();
 
         setClosable(true);
         setIconifiable(true);
@@ -144,6 +151,8 @@ public class FormRenta extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel13.setText("Nombre de Cliente: ");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -196,7 +205,6 @@ public class FormRenta extends javax.swing.JInternalFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jLabel5))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(btnFinalizarCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jLabel12)))
@@ -205,7 +213,7 @@ public class FormRenta extends javax.swing.JInternalFrame {
                                     .addComponent(txtTotalR, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
                                     .addComponent(txtFechaDevolucionR))
                                 .addGap(39, 39, 39))))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3)
@@ -214,7 +222,11 @@ public class FormRenta extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtNombreArticuloR, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
                             .addComponent(txtNumeroTarjetaR, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
-                            .addComponent(txtFechaActualR, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(txtFechaActualR))
+                        .addGap(33, 33, 33)
+                        .addComponent(jLabel13)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtNombreClienteR, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
@@ -232,10 +244,12 @@ public class FormRenta extends javax.swing.JInternalFrame {
                     .addComponent(jLabel3)
                     .addComponent(txtNombreArticuloR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(txtFechaActualR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(14, 14, 14)
+                    .addComponent(txtFechaActualR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13)
+                    .addComponent(txtNombreClienteR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(17, 17, 17)
                 .addComponent(btnBuscar)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -268,7 +282,7 @@ public class FormRenta extends javax.swing.JInternalFrame {
                             .addComponent(txtSubtotalR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnAgregar)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 304, Short.MAX_VALUE)
+                        .addGap(0, 305, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtTotalR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5))))
@@ -303,12 +317,12 @@ public class FormRenta extends javax.swing.JInternalFrame {
             }
              tblArticulosR.setModel(modelo);
              
-            //Traer informacion sobre Cliente
+             //Traer informacion sobre Cliente
             PreparedStatement pstCliente = cn.prepareStatement("select Nombre from clientes where No_Tarjeta = ?");
-            pst.setString(1, txtNumeroTarjetaR.getText().trim());
+            pstCliente.setString(1, txtNumeroTarjetaR.getText().trim());
             ResultSet rs1 = pstCliente.executeQuery();
             while(rs1.next()){
-                nombreCliente = rs1.getString("Nombre");
+               txtNombreClienteR.setText(rs1.getString("Nombre"));
             }
             
            
@@ -337,40 +351,24 @@ public class FormRenta extends javax.swing.JInternalFrame {
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here:
         
-        
+        txtFechaDevolucionR.setText( calcularFechaDevolucion(txtFechaActualR.getText()));
         try{
         fltSubtotal = Float.parseFloat(txtSubtotalR.getText());
         fltTotal+=fltSubtotal;
-        String strTotal;
-        strTotal = Float.toString(fltTotal);
-        txtTotalR.setText(strTotal);
+        
             //Guardando en tabla renta el registro de cada renta realizada para calcular bonos.
         Connection cn = DriverManager.getConnection(server,user,password);
         PreparedStatement pstRenta =  cn.prepareStatement("insert into rentas values(?,?,?,?)");
         pstRenta.setString(1,"0");
         pstRenta.setString(2,txtNumeroTarjetaR.getText().trim());
         pstRenta.setString(3,txtNombreArticuloR.getText().trim());
-        pstRenta.setString(4,((JTextField)txtFechaActualR.getDateEditor().getUiComponent()).getText());
+        pstRenta.setString(4,txtFechaActualR.getText().trim());
         pstRenta.executeUpdate();
-        //Calculando fecha de devolucion
-        txtFechaDevolucionR.setText(sumarDiasAFecha(((JTextField)txtFechaActualR.getDateEditor().getUiComponent()).getText(), 15));
         
-        //Guardando registro de la informacion de la renta en reportes
-        PreparedStatement pstReporte = cn.prepareStatement("insert into reporte values ?,?,?,?,?,?,?");
-            pstReporte.setString(1,"0");
-            pstReporte.setString(2,txtNumeroTarjetaR.getText().trim());
-            pstReporte.setString(3,nombreCliente);
-            pstReporte.setString(4,((JTextField)txtFechaActualR.getDateEditor().getUiComponent()).getText());
-            pstReporte.setString(5,txtFechaDevolucionR.getText().trim());
-            pstReporte.setString(6,txtIdArticuloR.getText().trim());
-            pstReporte.setString(7,txtTotalR.getText().trim());
-            pstReporte.executeUpdate();
-            
-            txtIdArticuloR.setText("");
-            txtNombreR.setText("");
-            txtTipoArticuloR.setText("");
-            txtDescripcionR.setText("");
-            txtGeneroR.setText("");
+        String strTotal;
+        strTotal = Float.toString(fltTotal);
+        txtTotalR.setText(strTotal);
+       
             
             
         }
@@ -381,26 +379,71 @@ public class FormRenta extends javax.swing.JInternalFrame {
 
     private void btnFinalizarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarCompraActionPerformed
         // TODO add your handling code here:
+       
         
-        
+       try{
+           //Guardando registro de la informacion de la renta en reportes
+        Connection cn1 = DriverManager.getConnection(server,user,password);
+ 
+        PreparedStatement pstReporte = cn1.prepareStatement("insert into reporte values (?,?,?,?,?,?,?)");
+            pstReporte.setString(1,"0");
+            pstReporte.setString(2,txtNumeroTarjetaR.getText().trim());
+            pstReporte.setString(3,txtNombreClienteR.getText().trim());
+            pstReporte.setString(4,txtFechaActualR.getText().trim());
+            pstReporte.setString(5,txtFechaDevolucionR.getText().trim());
+            pstReporte.setString(6,txtIdArticuloR.getText().trim());
+            pstReporte.setString(7,txtTotalR.getText().trim());
+            pstReporte.executeUpdate();
+            
+            txtNumeroTarjetaR.setText("");
+            txtNombreArticuloR.setText("");
+            txtFechaActualR.setText("");
+            txtNombreClienteR.setText("");
+            txtIdArticuloR.setText("");
+            txtNombreR.setText("");
+            txtTipoArticuloR.setText("");
+            txtDescripcionR.setText("");
+            txtGeneroR.setText("");
+            txtFechaDevolucionR.setText("");
+            txtTotalR.setText("");
+       }
+       catch(Exception e){}
     }//GEN-LAST:event_btnFinalizarCompraActionPerformed
 
 
-     public static String sumarDiasAFecha(String fecha, int dias) {
-        if(dias == 0){
-            return fecha;
-        }
-
-        String[] f = fecha.split("-");
-        Calendar calendar = Calendar.getInstance();
-        //calendar.setTime(new Date(Integer.parseInt(f[0]), Integer.parseInt(f[1]), Integer.parseInt(f[2])));
-        calendar.set(Integer.parseInt(f[0]), Integer.parseInt(f[1])-1, Integer.parseInt(f[2]));
-
-        calendar.add(Calendar.DAY_OF_MONTH, dias);
-        SimpleDateFormat fe = new SimpleDateFormat("dd-MM-YYYY");
-        return fe.format(calendar.getTime());
-
-    
+     public static ArrayList<Integer> extraerNumeros(String cadena) {
+      ArrayList<Integer> todosLosNumeros = new ArrayList<Integer>();
+      Matcher encuentrador = Pattern.compile("\\d+").matcher(cadena);
+      while (encuentrador.find()) { 
+        todosLosNumeros.add(Integer.parseInt(encuentrador.group()));
+      } 
+      return todosLosNumeros;
+    }
+     
+public static  String calcularFechaDevolucion(String fechaInicial){
+     
+          //Calculando fecha de devolucion
+        int dia, mes, año;
+        dia = extraerNumeros(fechaInicial).get(0);
+        mes = extraerNumeros(fechaInicial).get(1);
+        año = extraerNumeros(fechaInicial).get(2);
+            if (mes == 12) {
+                 fechaDevolucion = (dia + "/01/"+(año+1));
+            }
+            else if (mes == 1 && dia == 30) {
+                  fechaDevolucion = ("01/03/"+año);
+            }
+            else if (mes == 1 && dia == 31) {
+                  fechaDevolucion = ("02/03/"+año);
+            }
+            else if (mes%2 == 1) {
+                  fechaDevolucion = ("1/"+(mes+2)+"/"+año);
+            }
+            else{
+                fechaDevolucion = (dia + "/"+(mes+1)+"/"+año);
+            }
+        
+        return fechaDevolucion;
      }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
@@ -410,6 +453,7 @@ public class FormRenta extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -421,11 +465,12 @@ public class FormRenta extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblArticulosR;
     private javax.swing.JTextField txtDescripcionR;
-    private com.toedter.calendar.JDateChooser txtFechaActualR;
+    private javax.swing.JTextField txtFechaActualR;
     private javax.swing.JTextField txtFechaDevolucionR;
     private javax.swing.JTextField txtGeneroR;
     private javax.swing.JTextField txtIdArticuloR;
     private javax.swing.JTextField txtNombreArticuloR;
+    private javax.swing.JTextField txtNombreClienteR;
     private javax.swing.JTextField txtNombreR;
     private javax.swing.JTextField txtNumeroTarjetaR;
     private javax.swing.JTextField txtSubtotalR;
