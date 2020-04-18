@@ -61,7 +61,21 @@ Total_Renta float not null
 
 )engine=InnoDB Default charset = Latin1 ;
 
-#select * from articulos;
-#select * from clientes;
+create table devolucion
+(
+Id_Devolucion int primary key auto_increment,
+No_Tarjeta int not null,
+Monto float not null,
+Mora  float not null,
+Fecha_Renta  varchar(12)  not null,
+Fecha_Devolucion varchar(12)   not null,
+
+foreign key (No_Tarjeta) references clientes (No_Tarjeta)
+
+)engine=InnoDB Default charset = Latin1 ;
+
+select * from devolucion;
+select * from articulos;
+select * from clientes;
 select * from rentas;
 select * from reporte;
